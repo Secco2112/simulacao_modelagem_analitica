@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Simulação</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <link rel='stylesheet' type='text/css' media='screen' href='assets/css/main.css'>
+    <link rel='stylesheet' type='text/css' href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <main class="main">
+        <div class="wrapper">
+            <h1 class="title">Simulação de Modelagem Analítica</h1>
+            <form id="main-form" method="POST">
+                <div class="form-group">
+                    <label for="simulated_time">Tempo a ser simulado (em minutos)</label>
+                    <input value="60" type="text" class="form-control" id="simulated_time" name="simulated_time">
+                </div>
+                <div class="form-group arrivals">
+                    <div class="row">
+                        <label>Chegadas (λ):</label>
+                        <div class="column">
+                            <span class="tip_arrival">A</span>
+                            <input value="4" type="text" class="form-control" id="arrival_1" name="arrival_1">
+                        </div>
+                        <div class="column">
+                            <span class="tip_arrival">B</span>
+                            <input value="3.33" type="text" class="form-control" id="arrival_2" name="arrival_2">
+                        </div>
+                        <div class="column">
+                            <span class="tip_arrival">C</span>
+                            <input value="6" type="text" class="form-control" id="arrival_3" name="arrival_3">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group service">
+                    <div class="row">
+                        <label>Serviço (µ):</label>
+                        <div class="column first">
+                            <span class="tip_service">A</span>
+                            <input value="3" type="text" class="form-control" id="service_1" name="service_1">
+                        </div>
+                        <div class="column">
+                            <span class="tip_service">B</span>
+                            <input value="3" type="text" class="form-control" id="service_2" name="service_2">
+                        </div>
+                        <div class="column">
+                            <span class="tip_service">C</span>
+                            <input value="3" type="text" class="form-control" id="service_3" name="service_3">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group max_clients">
+                    <label for="max_clients">Probabilidade de clientes (máximo)</label>
+                    <input value="5" type="text" class="form-control" id="max_clients" name="max_clients">
+                </div>
+                <div class="form-group buttons">
+                    <button class="form-control btn btn-primary" id="simulate">Simular</button>
+                    <button class="form-control btn btn-secondary" id="restart">Reiniciar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</html>
