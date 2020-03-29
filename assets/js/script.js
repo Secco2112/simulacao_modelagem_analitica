@@ -3,6 +3,8 @@ var decimal_places = 2;
 $(document).ready(function() {
     handle_simulate();
     handle_restart();
+
+    $("#main-form").find("input").val("");
 });
 
 
