@@ -2,6 +2,7 @@ var decimal_places = 2;
 
 $(document).ready(function() {
     handle_simulate();
+    handle_restart();
 });
 
 
@@ -62,6 +63,8 @@ function handle_simulate() {
         var check = validate_form();
 
         if(check) {
+            $(".results").show();
+
             var form = $("#main-form"),
                 simulated_time = parseFloat($("#simulated_time").val()),
                 max_clients = parseFloat($("#max_clients").val()),
@@ -87,6 +90,12 @@ function handle_simulate() {
                 "C": format(results.arrivals["C"] / (results.services["C"] - results.arrivals["C"]))
             };
 
+            results.spent_time = {
+                "A": format(1 / (results.services["A"] - results.arrivals["A"])),
+                "B": format(1 / (results.services["B"] - results.arrivals["B"])),
+                "C": format(1 / (results.services["C"] - results.arrivals["C"]))
+            };
+
             results.server_occupation = {
                 "A": format(results.arrivals["A"] / results.services["A"]),
                 "B": format(results.arrivals["B"] / results.services["B"]),
@@ -104,7 +113,77 @@ function handle_simulate() {
                 };
             }
 
-            console.log(results);
+            
+            // Show results
+            $(".arrivals_services").find("tbody tr td").not(".keep").remove();
+            for(var i=0; i<3; i++) {
+                var letter = String.fromCharCode(65 + i);
+                $(".arrivals_services").find("tbody tr").first().append("<td>" + results.arrivals[letter] + "</td>");
+            }
+            for(var i=0; i<3; i++) {
+                var letter = String.fromCharCode(65 + i);
+                $(".arrivals_services").find("tbody tr").last().append("<td>" + results.services[letter] + "</td>");
+            }
+
+            $(".plus_data").find("tbody tr td").not(".keep").remove();
+            for(var i=0; i<3; i++) {
+                var letter = String.fromCharCode(65 + i);
+                $(".plus_data").find("tbody tr").first().append("<td>" + results.average_cars[letter] + "</td>");
+            }
+            for(var i=0; i<3; i++) {
+                var letter = String.fromCharCode(65 + i);
+                $(".plus_data").find("tbody tr").eq(1).append("<td>" + results.spent_time[letter] + "</td>");
+            }
+            for(var i=0; i<3; i++) {
+                var letter = String.fromCharCode(65 + i);
+                $(".plus_data").find("tbody tr").last().append("<td>" + results.server_occupation[letter] + "</td>");
+            }
+
+            $("table.max_clients tbody").empty();
+            for(i=0; i<max_clients; i++) {
+                var tr = "<tr>";
+                        tr += "<td>" + results.clients[i]["N"] + "</td>";
+                        tr += "<td>" + results.clients[i]["P"] + "</td>";
+                        tr += "<td>" + results.clients[i]["A"] + "</td>";
+                        tr += "<td>" + results.clients[i]["B"] + "</td>";
+                        tr += "<td>" + results.clients[i]["C"] + "</td>";
+                    tr += "</tr>";
+
+                $("table.max_clients tbody").append(tr);
+            }
+
+            setTimeout(function() {
+                $(".results").css({
+                    opacity: "1",
+                    visibility: "visible"
+                });
+
+                $("html, body").animate({ scrollTop: $(document).height() }, 2000);
+            }, 500);
         }
+    });
+}
+
+
+function handle_restart() {
+    $(".buttons #restart").on("click", function(e) {
+        e.preventDefault();
+
+        $("#main-form").find("input").val("");
+
+        $(".results").css({
+            opacity: "0",
+            visibility: "hidden"
+        });
+
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+
+        setTimeout(function() {
+            $(".arrivals_services").find("tbody tr td").not(".keep").remove();
+            $(".plus_data").find("tbody tr td").not(".keep").remove();
+            $("table.max_clients tbody").empty();
+
+            $(".results").hide();
+        }, 2000);
     });
 }
